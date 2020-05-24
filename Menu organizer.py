@@ -21,7 +21,7 @@ while X < 44: # this number may vary , you should find more genaric way
     else: """
     name = str_line[0:x]   # how about x = -1? 
     z = len(str_line)      # you already did at line 12
-    description2 = str_line[x:z-1]
+    description2 = str_line[x:z-1] # why description2 ? not just description?
     y = str_line.find(")")
     description = str_line[x:y + 1]
     if y == -1: ## if it can't find )
