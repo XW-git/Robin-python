@@ -5,7 +5,7 @@ import re  # do you still need this?
 menu = open("menu.txt", "r")
 translatedMenu = open("translatedMenu.txt", "w")
 X = 0
-p = -1
+p = -1 
 
     if x == -1:
         translatedMenu.write("Format Error\n")
