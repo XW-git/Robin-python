@@ -2,7 +2,7 @@ menu = open("menu.txt", "r")
 translatedMenu = open("translatedMenu.txt", "w")
 X = 0
 p = -1
-while X < 44:
+while X < 44:   #file line may change, so you should read until the end of file, do not use line number
     error = False
     t = False
     p = -1
