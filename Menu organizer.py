@@ -1,4 +1,6 @@
-import re  # do you still need this?
+xw
+
+import re  # do you still need this? 
 
 menu = open("menu.txt", "r")
 translatedMenu = open("translatedMenu.txt", "w")
