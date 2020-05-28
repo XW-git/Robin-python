@@ -3,13 +3,14 @@ menu = open("menu.txt", "r")
 translatedMenu = open("translatedMenu.txt", "w")
 X = 0
 p = -1
-str_line = menu.readline()
 
-while str_line:
+while True:
     error = False
     t = False
     p = -1
     str_line = menu.readline()
+    if not str_line:##This breaks the loop at the end of the file
+        break
     z = len(str_line)
     name2 = str_line[0:z - 1]
     x = str_line.find("(")
@@ -60,13 +61,9 @@ while str_line:
             price = price.strip()
 
 
-    if error == False:
-        if p != -1:
+    if p != -1:
             translatedMenu.write(name + "<em> " + str(price) + "</em>\n")
-        else:
+    else:
             translatedMenu.write(name + "<em> " + str(price) + "</em> <i>" + description + "</i>\n")
-    X = X + 1
 
-    ##name = re.search("[(]$", str_line)
-    ##print(name.start)
-##Calamari of the East <em> 6.75</em> <i>(lightly breaded Calamari)</i>
+    X = X + 1
