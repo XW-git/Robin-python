@@ -1,12 +1,16 @@
+
 menu = open("menu.txt", "r")
 translatedMenu = open("translatedMenu.txt", "w")
 X = 0
 p = -1
-while X < 44:   #file line may change, so you should read until the end of file, do not use line number
+str_line = menu.readline()
+
+while str_line:
     error = False
     t = False
     p = -1
     str_line = menu.readline()
+    z = len(str_line)
     name2 = str_line[0:z - 1]
     x = str_line.find("(")
 
@@ -16,9 +20,6 @@ while X < 44:   #file line may change, so you should read until the end of file,
         name3 = str_line[0:x]
         name = (name2 + name3)
     else: """
-    if x == -1:
-        translatedMenu.write("Format Error\n")
-        error = True
     name = str_line[0:x]
     z = len(str_line)
     description2 = str_line[x:z-1]
@@ -65,3 +66,7 @@ while X < 44:   #file line may change, so you should read until the end of file,
         else:
             translatedMenu.write(name + "<em> " + str(price) + "</em> <i>" + description + "</i>\n")
     X = X + 1
+
+    ##name = re.search("[(]$", str_line)
+    ##print(name.start)
+##Calamari of the East <em> 6.75</em> <i>(lightly breaded Calamari)</i>
