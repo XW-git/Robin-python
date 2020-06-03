@@ -1,69 +1,87 @@
-
 menu = open("menu.txt", "r")
 translatedMenu = open("translatedMenu.txt", "w")
-X = 0
-p = -1
+Period = -1
 
-while True:
-    error = False
-    t = False
-    p = -1
+
+def ResetVariables():
+    global error
+    global LineHasAInteger
+    global Period
+    global z
+    global x
+    global str_line
+    global SecondParenthesis
     str_line = menu.readline()
-    if not str_line:##This breaks the loop at the end of the file
-        break
+    error = False
+    LineHasAInteger = False
+    Period = -1
     z = len(str_line)
-    name2 = str_line[0:z - 1]
     x = str_line.find("(")
+    SecondParenthesis = str_line.find(")")
 
-    """if x == -1:
-        str_line = menu.readline()
-        x = str_line.find("(")
-        name3 = str_line[0:x]
-        name = (name2 + name3)
-    else: """
-    name = str_line[0:x]
-    z = len(str_line)
-    description2 = str_line[x:z-1]
-    y = str_line.find(")")
-    description = str_line[x:y + 1]
-    if y == -1: ## if it can't find )
-        p = str_line.find(".") ## Checks to see if price is on the same line because that means it has no description
-        if p != -1:
-            name = str_line[0:p - 1]
-            price = str_line[p - 1:z]
-            price = price.strip()
-        else: ## goes to next line to find description
-            str_line = menu.readline()
-            y = str_line.find(")")
-            if y == -1:
+
+def IsItMaki():
+    global name
+    global price
+    global z
+    Period = str_line.find(".")  ## Checks to see if price is on the same line because that means it has no description
+    if Period != -1:
+        name = str_line[0:Period - 1]
+        price = str_line[Period - 1:z]
+        price = price.strip()
+        return True
+    else:
+        return False
+
+
+def ChecksIfThereIsASecondParenthesis():
+    global name
+    global price
+    global str_line
+    global SecondParenthesis
+    global description
+    if SecondParenthesis == -1: ## if it can'LineHasAInteger find )
+        if not IsItMaki():
+            str_line = menu.readline() ## goes to next line to find description
+            SecondParenthesis = str_line.find(")")
+            if SecondParenthesis == -1:
                 str_line = menu.readline()
-                y = str_line.find(")")
-                if y == -1:
+                SecondParenthesis = str_line.find(")")
+                if SecondParenthesis == -1:
                     str_line = menu.readline()
-                    y = str_line.find(")")
+                    SecondParenthesis = str_line.find(")")
                 else:
-                    description3 = str_line[0:y + 1]
+                    description3 = str_line[0:SecondParenthesis + 1]
                     description = (description2 + " " + description3)
             else:
-                description3 = str_line[0:y+1]
+                description3 = str_line[0:SecondParenthesis+1]
                 description = (description2 + " " + description3)
-    if y != -1: ## if there is a ) carry on
+
+while True:
+    ResetVariables()
+    if not str_line:  ##This breaks the loop at the end of the file
+        break
+    name = str_line[0:x] ##Finds the name in the string and makes a variable with it
+    description2 = str_line[x:z-1]
+    description = str_line[x:SecondParenthesis + 1]
+    ChecksIfThereIsASecondParenthesis()
+
+    if SecondParenthesis != -1: ## Looks For Price
         for character in str_line: ## checks to see if the price in on the line
             if character.isdigit():
-                t = True
-        if t == False: ##goes to the next line for the price
+                LineHasAInteger = True
+        if LineHasAInteger == False: ##goes to the next line for the price
             str_line = menu.readline()
             z = len(str_line)
             price = str_line[0:z-1]
-        if t == True:
+        if LineHasAInteger == True:
             z = len(str_line)
-            price = str_line[y+1:z-1]
+            price = str_line[SecondParenthesis+1:z-1]
             price = price.strip()
 
 
-    if p != -1:
+    if Period != -1:
             translatedMenu.write(name + "<em> " + str(price) + "</em>\n")
     else:
             translatedMenu.write(name + "<em> " + str(price) + "</em> <i>" + description + "</i>\n")
 
-    X = X + 1
