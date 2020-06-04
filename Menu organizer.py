@@ -1,87 +1,92 @@
 menu = open("menu.txt", "r")
 translatedMenu = open("translatedMenu.txt", "w")
+X = 0
 Period = -1
 
 
 def ResetVariables():
     global error
-    global LineHasAInteger
+    global Line_Has_An_Integer
     global Period
-    global z
-    global x
+    global Line_Length
+    global First_Parenthesis
     global str_line
-    global SecondParenthesis
+    global Second_Parenthesis
     str_line = menu.readline()
     error = False
-    LineHasAInteger = False
+    Line_Has_An_Integer = False
     Period = -1
-    z = len(str_line)
-    x = str_line.find("(")
-    SecondParenthesis = str_line.find(")")
+    Line_Length = len(str_line)
+    First_Parenthesis = str_line.find("(")
+    Second_Parenthesis = str_line.find(")")
 
 
 def IsItMaki():
     global name
     global price
-    global z
+    global Line_Length
     Period = str_line.find(".")  ## Checks to see if price is on the same line because that means it has no description
     if Period != -1:
         name = str_line[0:Period - 1]
-        price = str_line[Period - 1:z]
+        price = str_line[Period - 1:Line_Length]
         price = price.strip()
         return True
     else:
         return False
 
 
-def ChecksIfThereIsASecondParenthesis():
+def Checks_If_There_Is_A_Second_Parenthesis():
     global name
     global price
     global str_line
-    global SecondParenthesis
+    global Second_Parenthesis
     global description
-    if SecondParenthesis == -1: ## if it can'LineHasAInteger find )
+    if Second_Parenthesis == -1: ## if it can'Line_Has_An_Integer find )
         if not IsItMaki():
             str_line = menu.readline() ## goes to next line to find description
-            SecondParenthesis = str_line.find(")")
-            if SecondParenthesis == -1:
+            Second_Parenthesis = str_line.find(")")
+            if Second_Parenthesis == -1:
                 str_line = menu.readline()
-                SecondParenthesis = str_line.find(")")
-                if SecondParenthesis == -1:
+                Second_Parenthesis = str_line.find(")")
+                if Second_Parenthesis == -1:
                     str_line = menu.readline()
-                    SecondParenthesis = str_line.find(")")
+                    Second_Parenthesis = str_line.find(")")
                 else:
-                    description3 = str_line[0:SecondParenthesis + 1]
+                    description3 = str_line[0:Second_Parenthesis + 1]
                     description = (description2 + " " + description3)
             else:
-                description3 = str_line[0:SecondParenthesis+1]
+                description3 = str_line[0:Second_Parenthesis+1]
                 description = (description2 + " " + description3)
+
+##Main Starts Here
 
 while True:
     ResetVariables()
     if not str_line:  ##This breaks the loop at the end of the file
         break
-    name = str_line[0:x] ##Finds the name in the string and makes a variable with it
-    description2 = str_line[x:z-1]
-    description = str_line[x:SecondParenthesis + 1]
-    ChecksIfThereIsASecondParenthesis()
+    name = str_line[0:First_Parenthesis] ##Finds the name in the string and makes a variable with it
+    description2 = str_line[First_Parenthesis:Line_Length-1]
+    description = str_line[First_Parenthesis:Second_Parenthesis + 1]
+    Checks_If_There_Is_A_Second_Parenthesis()
 
-    if SecondParenthesis != -1: ## Looks For Price
+    if Second_Parenthesis != -1: ## Looks For Price
         for character in str_line: ## checks to see if the price in on the line
             if character.isdigit():
-                LineHasAInteger = True
-        if LineHasAInteger == False: ##goes to the next line for the price
+                Line_Has_An_Integer = True
+        if Line_Has_An_Integer == False: ##goes to the next line for the price
             str_line = menu.readline()
-            z = len(str_line)
-            price = str_line[0:z-1]
-        if LineHasAInteger == True:
-            z = len(str_line)
-            price = str_line[SecondParenthesis+1:z-1]
+            Line_Length = len(str_line)
+            price = str_line[0:Line_Length-1]
+        if Line_Has_An_Integer == True:
+            Line_Length = len(str_line)
+            price = str_line[Second_Parenthesis+1:Line_Length-1]
             price = price.strip()
 
 
     if Period != -1:
-            translatedMenu.write(name + "<em> " + str(price) + "</em>\n")
+        translatedMenu.write(name + "<em> " + str(price) + "</em>\n")
     else:
-            translatedMenu.write(name + "<em> " + str(price) + "</em> <i>" + description + "</i>\n")
+        translatedMenu.write(name + "<em> " + str(price) + "</em> <i>" + description + "</i>\n")
+
+    X = X + 1
 
