@@ -21,7 +21,7 @@ def ResetVariables():
     Second_Parenthesis = str_line.find(")")
 
 
-def IsItMaki():
+def Is_It_Maki():
     global name
     global price
     global Line_Length
@@ -42,7 +42,7 @@ def Checks_If_There_Is_A_Second_Parenthesis():
     global Second_Parenthesis
     global description
     if Second_Parenthesis == -1: ## if it can'Line_Has_An_Integer find )
-        if not IsItMaki():
+        if not Is_It_Maki(): ## Has to check if it is maki because maki has a no description
             str_line = menu.readline() ## goes to next line to find description
             Second_Parenthesis = str_line.find(")")
             if Second_Parenthesis == -1:
@@ -89,4 +89,3 @@ while True:
         translatedMenu.write(name + "<em> " + str(price) + "</em> <i>" + description + "</i>\n")
 
     X = X + 1
-
