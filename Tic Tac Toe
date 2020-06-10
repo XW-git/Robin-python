@@ -24,12 +24,12 @@ def printBoard(board):
 def isWinner(bo, letter2):
     return bo[9] == letter2 and bo[8] == letter2 and bo[7] == letter2 or(
         bo[6] == letter2 and bo[5] == letter2 and bo[4] == letter2) or(
-            bo[3] == letter2 and bo[2] == letter2 and bo[1] == letter2) or (
-                bo[1] == letter2 and bo[4] == letter2 and bo[7] == letter2) or (
-                    bo[2] == letter2 and bo[5] == letter2 and bo[8] == letter2) or (
-                        bo[3] == letter2 and bo[6] == letter2 and bo[9] == letter2) or (
-                            bo[1] == letter2 and bo[5] == letter2 and bo[9] == letter2) or (
-                                bo[3] == letter2 and bo[5] == letter2 and bo[7] == letter2)
+        bo[3] == letter2 and bo[2] == letter2 and bo[1] == letter2) or (
+        bo[1] == letter2 and bo[4] == letter2 and bo[7] == letter2) or (
+        bo[2] == letter2 and bo[5] == letter2 and bo[8] == letter2) or (
+        bo[3] == letter2 and bo[6] == letter2 and bo[9] == letter2) or (
+        bo[1] == letter2 and bo[5] == letter2 and bo[9] == letter2) or (
+        bo[3] == letter2 and bo[5] == letter2 and bo[7] == letter2)
 
 def isBoardFull(board):
    if board.count(' ') > 1:
